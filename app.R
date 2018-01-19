@@ -8,6 +8,7 @@ library(gridExtra)
 library(ggvis)
 # devtools::install_github("elenakhusainova/epi_rpackage", force = TRUE)
 library(EPI)
+
 load("alldata.RData")
 countries <- alldata$y2018raw[[1]]$country
 aux <- alldata$aux
@@ -31,7 +32,7 @@ create_alldata <- function(y2014raw = "../../../Work/LRaw",
  # Auxiliary function to create a list of data frames for the given type 
  # and year. Essentially it reads all the .csv files from the folder which names
  # matches the pattern.
- create_alldata_aux <- function(path, pattern = NULL){
+ create_alldata_aux <- function(path, pattern = NULL, neededVars){
   before <- dir(path) # List of files in the folder before I started
   make.na(path)
   new <- setdiff(dir(path), before) # Files I added, will need to clean later
@@ -43,19 +44,25 @@ create_alldata <- function(y2014raw = "../../../Work/LRaw",
                 })
   # Get the abbreviation (capital letters with numbers):
   names(out) <- gsub("^.*[^A-Z0-9]([A-Z0-9]+)_.*$", "\\1", files) 
+  out <- out[names(out) %in% neededVars]
   file.remove(paste0(path, "/", new))
   return(out)
  }
  
- allRaw2014 <- create_alldata_aux(y2014raw, pattern = "^L14.*_na.csv$")
- allRaw2016 <- create_alldata_aux(y2016raw, pattern = "^L16.*_na.csv$")
- allRaw2018 <- create_alldata_aux(y2018raw, pattern = ".*_na.csv$")
+ info <- read.csv(information, as.is = TRUE)
+ info <- info[, c("Type", "Abbreviation", "Description", "RawPolarity", "Normalization",
+                  "Transformation", "Target_Good", "Target_Bad")]
+ neededVars <- info$Abbreviation[info$Type != "Stop"]
  
- allNrm2018 <- create_alldata_aux(y2018nrm, pattern = ".*_na.csv$")
- allTrf2018 <- create_alldata_aux(y2018trf, pattern = ".*_na.csv$")
- allRsz2018 <- create_alldata_aux(y2018rsz, pattern = ".*_na.csv$")
- allImp2018 <- create_alldata_aux(y2018imp, pattern = ".*_na.csv$")
- allInd2018 <- create_alldata_aux(y2018ind, pattern = ".*_na.csv$")
+ allRaw2014 <- create_alldata_aux(y2014raw, pattern = "^L14.*_na.csv$", neededVars)
+ allRaw2016 <- create_alldata_aux(y2016raw, pattern = "^L16.*_na.csv$", neededVars)
+ allRaw2018 <- create_alldata_aux(y2018raw, pattern = ".*_na.csv$", neededVars)
+ 
+ allNrm2018 <- create_alldata_aux(y2018nrm, pattern = ".*_na.csv$", neededVars)
+ allTrf2018 <- create_alldata_aux(y2018trf, pattern = ".*_na.csv$", neededVars)
+ allRsz2018 <- create_alldata_aux(y2018rsz, pattern = ".*_na.csv$", neededVars)
+ allImp2018 <- create_alldata_aux(y2018imp, pattern = ".*_na.csv$", neededVars)
+ allInd2018 <- create_alldata_aux(y2018ind, pattern = ".*_na.csv$", neededVars)
  
  rawNames2018 <- names(allRaw2018)
  rawNames2016 <- names(allRaw2016)
@@ -79,14 +86,11 @@ create_alldata <- function(y2014raw = "../../../Work/LRaw",
            rep("rsz", length(rszNames2018)), rep("imp", length(impNames2018)),
            rep("ind", length(indNames2018)))
  
- info <- read.csv(information, as.is = TRUE)
- info <- info[, c("Abbreviation", "Description", "RawPolarity", "Normalization",
-                  "Transformation", "Target_Good", "Target_Bad")]
+ 
  aux <- data.frame(name = var_name,
                    year = year,
                    type = type, stringsAsFactors = FALSE)
  aux <- aux[!duplicated(aux),]
- # aux <- aux[aux$name %in% info$Abbreviation,] 
  alldata <- list("y2018raw" = allRaw2018,
                  "y2016raw" = allRaw2016,
                  "y2014raw" = allRaw2014,
@@ -188,7 +192,7 @@ maxres <- function(x) {
 
 
 plot_ts_ggvis <- function(x, threshold, input_var, input_type, input_datayear, 
-                          input_transform) {
+                          input_transform = "None") {
  # Calculate residuals:
  lms <- maxres(x)
  
@@ -395,7 +399,6 @@ server <- function(input, output, session) {
                     choices = c("most recent", rev(years2)))
  })
  
- 
  # Data frame for outputs:
  z <- reactive({
   c(input$datayear1, input$datayear2, input$type1, input$type2, input$var1, 
@@ -405,7 +408,6 @@ server <- function(input, output, session) {
   if (!any(c(is.null(X), is.null(Y)))) get_DataForComparison(X, Y, input$year1, input$year2)
   else NULL
  })
- 
  
  # Outputs:
  observe({ 
@@ -419,11 +421,6 @@ server <- function(input, output, session) {
     bind_shiny("plot_compare")
   }
   
-  #plot_compare_ggvis(selected, isolate(input$year1), isolate(input$year2),
-  #                   isolate(input$var1), isolate(input$var2),
-  #                   isolate(input$datayear1), isolate(input$datayear2)) %>%
-  #  layer_points() %>%
-  #  bind_shiny("plot_compare_zoom")
  }, priority = -1)
  
  output$table12 <- renderDataTable({
@@ -456,8 +453,7 @@ server <- function(input, output, session) {
  output$hist <- renderPlot({
   
   if(!is.null(var())){
-   if(input$transform == "None") z <- var()
-   else tryCatch({z <- logit(var())$x}, error = function(e) e, finally = {z <- var()})
+   z <- var()
    temp <- data.frame(country = countries,
                       var1 = apply(z[, -c(1:3)], 1, function(x) {rev(x[!is.na(x)])[1]}))
   }
@@ -467,7 +463,6 @@ server <- function(input, output, session) {
    geom_histogram(color="black", fill="lightblue") +
    xlab(paste0("Indicator: ", isolate(input$var), "; ",
                "EPI version: ", isolate(input$datayear), "; ",
-               "Transformation: ", isolate(input$transform), "; ",
                "Type: ", isolate(input$type))) +
    ylab("") +
    theme_bw()
@@ -475,11 +470,9 @@ server <- function(input, output, session) {
  
  observe({
   if(!is.null(var())){
-   if(input$transform == "None") z <- var()
-   else tryCatch({z <- logit(var())$x}, error = function(e) e, finally = {z <- var()})
+   z <- var()
    plot_ts_ggvis(z, input$threshold, isolate(input$var),
-                 isolate(input$type), isolate(input$datayear),
-                 isolate(input$transform)) %>% bind_shiny("ts_ggvis")
+                 isolate(input$type), isolate(input$datayear)) %>% bind_shiny("ts_ggvis")
   }
  })
  
@@ -569,11 +562,11 @@ ui <-
                                                             "Current (2018)" = 2018),
                                                           selected = 2018),
                                               selectInput('var1', 'X-axis: select indicator:',
-                                                          alldata$y2018names_raw,
-                                                          selected=alldata$y2018names_raw[1]),
+                                                          aux$name[aux$year == 2018 &
+                                                                    aux$type == "raw"]),
                                               selectInput('type1',
                                                           'X-axis: select variable type:',
-                                                          abbr2full, selected = 'raw'),
+                                                          abbr2full),
                                               selectInput('year1',
                                                           'X-axis: select year:', c(""))),
                                        column(width = 6,
@@ -584,11 +577,11 @@ ui <-
                                                             "Current (2018)" = 2018),
                                                           selected = 2018),
                                               selectInput('var2', 'Y-axis: select indicator:',
-                                                          alldata$y2018names_raw,
-                                                          selected=alldata$y2018names_raw[1]),
+                                                          aux$name[aux$year == 2018 &
+                                                                    aux$type == "raw"]),
                                               selectInput('type2',
                                                           'Y-axis: select variable type:',
-                                                          abbr2full, selected = 'raw'),
+                                                          abbr2full),
                                               selectInput('year2',
                                                           'Y-axis: select year:', c("")))),
                                       fluidRow(
@@ -612,10 +605,10 @@ ui <-
                                                                             aux$type == "raw"]),
                                                       selectInput('type',
                                                                   'Select variable type:',
-                                                                  abbr2full, selected = 'raw')),
+                                                                  abbr2full)),
                                                column(width = 6,
-                                                      selectInput('transform', 'Select transformation:',
-                                                                  c("None", "log"), selected = "None"),
+                                                      #selectInput('transform', 'Select transformation:',
+                                                      #            c("None", "log"), selected = "None"),
                                                       sliderInput("threshold", 
                                                                   label = 
                                                                    p("Threshold",
@@ -646,7 +639,9 @@ ui <-
                                                       selectInput('type_3', 'Select variable type:',
                                                                   full2abbr, selected = "raw"),
                                                       selectInput('vars', 'Select variables:',
-                                                                  c("all", alldata$y2018names_raw), 
+                                                                  c("all", 
+                                                                    aux$name[aux$year == 2018 &
+                                                                              aux$type == "raw"]), 
                                                                   selected = "all",
                                                                   multiple = TRUE)),
                                                column(width = 4,
