@@ -278,9 +278,8 @@ server <- function(input, output, session) {
   filename = "Plot.pdf",
   content = function(file) {
    ggsave(file, plot_ts_countries_ggplot(input$countries, input$vars,
-                                         input$type_3, input$luckyNum,
-                                         input$lucky, input$add,
-                                         input$fullRange, saveplot = TRUE),
+                                         input$luckyNum, input$lucky, 
+                                         input$add, saveplot = TRUE),
           width = 11, height = 7)
   })
  
