@@ -26,7 +26,7 @@ create_alldata <- function(y2014raw = "../../../Work/LRaw",
                            y2018rsz = "../../../Work/P3_Resizing",
                            y2018imp = "../../../Work/P4_Imputation",
                            y2018ind = "../../../Work/P5_Indicator",
-                           information = "../../../Work/Inputs/master_variable_list.csv",
+                           information = "master_variable_list.csv", # Make sure no CXN!
                            allow.na = TRUE) {
  
  # Auxiliary function to create a list of data frames for the given type 
@@ -153,6 +153,7 @@ plot_ts_countries_ggplot <- function(input_country, input_vars, input_type_3,
  
  
  plots <- lapply(names(out_data), function(ind) {
+  
   years <- gsub(".*([0-9]{4}).*", "\\1", names(out_data[[ind]])[-c(1:3)])
   pl <- melt(out_data[[ind]][, -c(1:2)])
   pl$year <- as.numeric(gsub(".*([0-9]{4}).*", "\\1", pl$variable))
@@ -481,17 +482,13 @@ server <- function(input, output, session) {
   if(!(is.null(var()))){
    out <- data.frame(country = countries,
                      var1 = apply(var()[, -c(1:3)], 1,
-                                  function(x) {rev(x[!is.na(x)])[1]}),
-                     var2 = apply(logit(var())$x[, -c(1:3)], 1,
                                   function(x) {rev(x[!is.na(x)])[1]}))
-   names(out) <- c("country", isolate(input$var), 
-                   paste(isolate(input$var), "log"))
+   names(out) <- c("country", isolate(input$var))
    out
   }
  })
  
- 
- 
+
  #################################
  ########## Third tab ############
  
@@ -531,7 +528,6 @@ server <- function(input, output, session) {
                                          input$fullRange, saveplot = TRUE),
           width = 11, height = 7)
   })
- 
 }
 
 
@@ -548,6 +544,7 @@ ui <-
                  menuItem("Look at one variable separately", tabName = "one_var"),
                  menuItem(text = tags$p("Compare countries with current", tags$br(), "EPI data"), 
                           tabName = "country")),
+                
                 htmlOutput("text")),
                dashboardBody(tags$head(tags$style(HTML('.skin-blue .main-header .logo {background-color: #1b1b38;} .skin-blue .main-header .logo:hover {background-color: #1b1b38;} .skin-blue .main-header .navbar {background-color: #06357a;} .skin-blue .main-sidebar {background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #1b1b38;color: #ffffff;} .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #06357a;} .skin-blue .main-header .navbar .sidebar-toggle:hover{background-color: #06357a;}'))),
                              tabItems(
@@ -689,8 +686,10 @@ ui <-
                                                       actionButton("do", "GO!", width = '100%', 
                                                                    style="color: #ffffff; background-color: #94a0b8; border-color: #1b1b38"))),
                                       conditionalPanel("input.do != 0", 
-                                                       fluidRow(box(width = 12, uiOutput('plot3_fin'))))
-                              )))
+                                                       fluidRow(box(width = 12, uiOutput('plot3_fin')))))
+                             
+                             ))
  )
+
 
 shinyApp(ui = ui, server = server)
