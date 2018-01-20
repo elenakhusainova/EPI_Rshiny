@@ -7,4 +7,4 @@ Contributors:
 - Elena Khusainova
 
 
-Files ending with "_red" (stands for reduced) correspond to the app meant for publishing. 
+Files ending with "_red" (stands for reduced) correspond to the app meant for publishing. Link: http://54.227.147.72:3838/EPI_red/
