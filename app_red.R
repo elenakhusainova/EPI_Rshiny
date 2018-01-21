@@ -225,6 +225,7 @@ server <- function(input, output, session) {
    out <- data.frame(country = countries,
                      var1 = apply(var()[, -c(1:3)], 1,
                                   function(x) {rev(x[!is.na(x)])[1]}))
+   out$var1 <- round(as.numeric(out$var1), 2)
    names(out) <- c("country", paste0("Last available data for ", isolate(input$var)))
    out
   }
@@ -239,13 +240,19 @@ server <- function(input, output, session) {
   scores <- alldata$scores[alldata$scores$country == isolate(input$country), ]
   inds <- unique(gsub("^([A-Z0-9]*)[^A-Z0-9].*", "\\1", names(ranks)))
   inds <- inds[inds != ""]
-                            
-  df <- data.frame(ind = inds,
-                   score_new = unlist(scores[, paste0(inds, ".new")]),
-                   rank_new = unlist(ranks[, paste0(inds, ".rnk.new")]),
-                   score_old = unlist(scores[, paste0(inds, ".old")]),
-                   rank_old = unlist(ranks[, paste0(inds, ".rnk.old")]))
-  names(df) <- c("Var", "2018 score new", "2018 rank new", "2018 score old", "2018 rank old")
+  
+  df <- data.frame(ind = inds, score_new = NA, rank_new = NA, score_old = NA, rank_old = NA)
+  
+  if (nrow(scores) != 0) {    
+   df$score_new <- round(as.numeric(unlist(scores[, paste0(inds, ".new")])), 2)
+   df$score_old <- round(as.numeric(unlist(scores[, paste0(inds, ".old")])), 2)
+  }
+  if (nrow(ranks) != 0) {
+   df$rank_new <- round(as.numeric(unlist(ranks[, paste0(inds, ".rnk.new")])), 2)
+   df$rank_old <- round(as.numeric(unlist(ranks[, paste0(inds, ".rnk.old")])), 2)
+  }
+
+  names(df) <- c("Var", "2018 score current", "2018 rank current", "2018 score baseline", "2018 rank baseline")
   df
  })
  
