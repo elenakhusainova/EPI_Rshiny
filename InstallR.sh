@@ -20,6 +20,7 @@
 ## chmod +x InstallR.sh
 ## ./InstallR.sh
 ##
+## - Modified by Elena Khusainova
 
 ## Set some variables here:
 
@@ -29,7 +30,7 @@ doextras=1           # 0 if you don't want apache, LaTeX, Rserve/FastRWeb, shiny
 ## Choose the R version here:
 
 rversion='3.3.2-1xenial0'
-wget https://raw.githubusercontent.com/elidechse/EPI/master/InstallPackages.r
+wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.r
 
 ## ----------------------------------------------------------------------------
 ## - Probably don't modify, below
