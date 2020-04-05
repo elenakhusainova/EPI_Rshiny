@@ -7,7 +7,7 @@ sudo apt-get update
 #sudo apt-get install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion} r-base-core=${rversion}
 sudo apt-get install r-base r-recommended r-base-dev r-base-core
 
-## Get the packages I need
+## Get R packages I need
 wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.r
 R CMD BATCH InstallPackages.R
 
