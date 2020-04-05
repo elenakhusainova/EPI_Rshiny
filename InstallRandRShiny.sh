@@ -1,7 +1,11 @@
-## Get R
-rversion='3.3.2-1xenial0'
+#!/bin/sh
+
 sudo apt-get update
-sudo apt-get install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion} r-base-core=${rversion}
+
+## Get R
+#rversion='3.4.4-1xenial0'
+#sudo apt-get install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion} r-base-core=${rversion}
+sudo apt-get install r-base r-recommended r-base-dev r-base-core
 
 ## Get the packages I need
 wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.r
