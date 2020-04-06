@@ -36,4 +36,5 @@ echo "\n\nInstalled R Shiny ...\n\n"
 # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 # apt-get update
 # apt-get upgrade
+# R -e "install.packages('Rcpp', dependencies = TRUE, INSTALL_opts = '--no-lock')"
 
