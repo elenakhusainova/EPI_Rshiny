@@ -219,7 +219,7 @@ server <- function(input, output, session) {
    theme_bw()
  })
  
- output$table <- renderDataTable({
+ output$table <- DT::renderDataTable({
   var()
   if(!(is.null(var()))){
    out <- data.frame(country = countries,
