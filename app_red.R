@@ -306,7 +306,7 @@ ui <-
                     menuItem("Explore an indicator or variable", tabName = "onevar"),
                     menuItem("Explore a country", tabName = "onecountry"),
                     menuItem("Compare countries", tabName = "manycountries"))),
-                dashboardBody(tags$head(tags$style(HTML('.skin-blue .main-header .logo {background-color: #1b1b38;} .skin-blue .main-header .logo:hover {background-color: #1b1b38;} .skin-blue .main-header .navbar {background-color: #06357a;} .skin-blue .main-sidebar {background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #1b1b38;color: #ffffff;} .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #06357a;} .skin-blue .main-header .navbar .sidebar-toggle:hover{background-color: #06357a;}'))),
+                dashboardBody(tags$head(tags$style(HTML('.skin-blue .main-header .logo {background-color: #e6ecf3;} .skin-blue .main-header .logo:hover {background-color: #1b1b38;} .skin-blue .main-header .navbar {background-color: #06357a;} .skin-blue .main-sidebar {background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #1b1b38;} .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #1b1b38;color: #ffffff;} .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #06357a;} .skin-blue .main-header .navbar .sidebar-toggle:hover{background-color: #06357a;}'))),
                               tabItems(
                                 tabItem(tabName = "onevar",
                                         fluidRow(column(width = 12,
