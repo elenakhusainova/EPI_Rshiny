@@ -6,7 +6,7 @@ library(reshape2)
 library(ggplot2)
 library(gridExtra)
 library(ggvis)
-# devtools::install_github("elenakhusainova/epi_rpackage", force = TRUE)
+# devtools::install_github("elenakhusainova/EPI_Rpackage", force = TRUE)
 library(EPI)
 
 load("alldata_red.RData")
@@ -297,7 +297,7 @@ ui <-
  dashboardPage(title = "EPI visualization tools",
                dashboardHeader(title = 
                                 tags$div(tags$a(href='http://epi.yale.edu/',
-                                                tags$img(src='http://epi.yale.edu/sites/all/themes/epizen/favicon.ico',
+                                                tags$img(src='https://epi.envirocenter.yale.edu/sites/default/files/epi_lockup_52.png',
                                                          height='20', width='20')), "EPI vis")
                ),
                dashboardSidebar(
