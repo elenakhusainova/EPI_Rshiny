@@ -298,7 +298,7 @@ ui <-
                dashboardHeader(title = 
                                 tags$div(tags$a(href='http://epi.yale.edu/',
                                                 tags$img(src='https://epi.envirocenter.yale.edu/sites/default/files/epi_lockup_52.png',
-                                                         height='30', width='90')), "")
+                                                         height='30', width='110')), "")
                ),
                dashboardSidebar(
                 sidebarMenu(
