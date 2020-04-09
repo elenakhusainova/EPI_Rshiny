@@ -374,7 +374,7 @@ ui <-
                                                                        'Download plots'))),
                                         
                                         fluidRow(column(width = 12, 
-                                                        actionButton("do", "GO!", width = '100%',
+                                                        actionButton("do", "GO! (Might take some time)", width = '100%',
                                                                      style="color: #ffffff; background-color: #94a0b8; border-color: #1b1b38"))),
                                         conditionalPanel("input.do != 0", 
                                                          fluidRow(box(width = 12, uiOutput('plot3_fin')))))
