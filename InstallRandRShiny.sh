@@ -42,8 +42,17 @@ apt-get install gdebi-core
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
 
+# To repair the problem with devtools:
+# from https://github.com/r-lib/devtools/issues/2131 :
+apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 
+# -------------------------------------------
+# ----- At this point everything worked. ----
+# -------------------------------------------
 
+# -------------------------------------------
+# ----- Below are some drafts.  -------------
+# -------------------------------------------
 
 
 #apt-get update
@@ -92,10 +101,8 @@ gdebi shiny-server-1.5.13.944-amd64.deb
 #wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 #gdebi shiny-server-1.5.13.944-amd64.deb
 
-
-
 # -- Get R packages I need ---------
-#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.r
+#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 #R CMD BATCH InstallPackages.R
 #echo "\n\nInstalled R packages ...\n\n"
 
