@@ -116,3 +116,7 @@ apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 # apt-get upgrade
 # R -e "install.packages('Rcpp', dependencies = TRUE, INSTALL_opts = '--no-lock')"
 
+# In case dplyr is needed and there are problems with its LinkingTo -- BH:
+# From https://community.rstudio.com/t/install-packages-dplyr-fails-on-new-project/55787/3
+# remotes::install_version('dplyr', '0.8.3', repos = 'https://demo.rstudiopm.com/cran/__linux__/xenial/latest')
+
