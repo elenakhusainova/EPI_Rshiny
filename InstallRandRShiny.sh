@@ -4,7 +4,7 @@
 debsource='deb http://cran.case.edu/bin/linux/ubuntu trusty/'
 rversion='3.2.5-1trusty0'
 # Get this and modify by hand for further package customization:
-wget http://www.stat.yale.edu/~jay/EC2/InstallPackages.R
+wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 
 echo ${debsource} >> /etc/apt/sources.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
@@ -15,7 +15,7 @@ echo "\n\nFinished update, installing R...\n\n"
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-get -y --force-yes install r-base-core=${rversion}
 
-wget http://www.stat.yale.edu/~jay/EC2/InstallExtras.R
+#wget http://www.stat.yale.edu/~jay/EC2/InstallExtras.R
 echo "\n\nFinished R, doing LaTeX and Apache...\n\n"
 apt-get -y --force-yes install apache2
 apt-get -y --force-yes install libcairo2-dev
@@ -35,7 +35,7 @@ apt-get -y --force-yes install python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -y --force-yes install nodejs
-sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
 apt-get install gdebi-core
 
 # From https://rstudio.com/products/shiny/download-server/ubuntu/  :
