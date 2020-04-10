@@ -38,6 +38,7 @@ wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/Install
 echo ${debsource} >> /etc/apt/sources.list
 
 echo "\n\nInstalling R...\n\n"
+apt-get update
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-get -y --force-yes install r-base-core=${rversion}
 
