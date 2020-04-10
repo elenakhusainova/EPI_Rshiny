@@ -48,10 +48,6 @@ apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... also takes some time (~5min)
 
 # -------------------------------------------
-# ----- At this point everything worked. ----
-# -------------------------------------------
-
-# -------------------------------------------
 # ----- Below are some drafts.  -------------
 # -------------------------------------------
 
