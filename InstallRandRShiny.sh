@@ -24,13 +24,13 @@ add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -y --force-yes install nodejs
 
-echo "\n\nFinished preliminary, installing R...\n\n"
-
 apt-get install gdebi-core
 
 # To repair the problem with devtools:
 # from https://github.com/r-lib/devtools/issues/2131 :
 apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+
+echo "\n\nFinished preliminary, installing R...\n\n"
 
 # ----------------------------------------------------------------------------
 # --------------- Installing R -----------------------------------------------
@@ -44,15 +44,19 @@ wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/Install
 
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-get -y --force-yes install r-base-core=${rversion}
+echo "\n\nR is done!\n\n"
 
-R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... Takes some time (~15min)
-
-echo "\n\nDoing Shiny...\n\n"
+echo "\n\nInstalling Shiny...\n\n"
 # Shiny:
 su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
 # From https://rstudio.com/products/shiny/download-server/ubuntu/  :
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
+echo "\n\nShiny is done!\n\n"
+
+echo "\n\nInstalling additional R packages...\n\n"
+
+R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... Takes some time (~15min)
 
 echo "\n\nDone!\n\n"
 
