@@ -24,7 +24,7 @@ echo "\n\nFinished Apache.\n\n"
 echo "\n\nDoing libxt, knitr, ...\n\n"
 
 apt-get -y --force-yes install libxt-dev
-R CMD BATCH InstallExtras.R        # Rserve, FastRWeb, knitr, takes some time (~5min)
+#R CMD BATCH InstallExtras.R        # Rserve, FastRWeb, knitr, takes some time (~5min)
 R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... also takes some time (~5min)
 
 echo "\n\nDoing Shiny and FastRWeb postinstallation.\n\n"
