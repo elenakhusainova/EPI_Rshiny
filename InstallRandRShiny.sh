@@ -20,6 +20,7 @@ add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -y --force-yes install nodejs
 
+# Tool to instal .deb files:
 apt-get install gdebi-core
 
 # To repair the problem with devtools:
