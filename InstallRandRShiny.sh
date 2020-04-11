@@ -80,7 +80,7 @@ R CMD BATCH InstallPackages.R
 
 #debsource='deb http://cran.case.edu/bin/linux/ubuntu trusty/'
 #rversion='3.2.5-1trusty0'
-#wget http://www.stat.yale.edu/~jay/EC2/InstallPackages.R
+#https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 #echo ${debsource} >> /etc/apt/sources.list
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 #apt-get update
