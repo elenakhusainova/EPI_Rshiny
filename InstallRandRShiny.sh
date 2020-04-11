@@ -86,11 +86,9 @@ R CMD BATCH InstallPackages.R
 #apt-get update
 #apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 #apt-get -y --force-yes install r-base-core=${rversion}
-#wget http://www.stat.yale.edu/~jay/EC2/InstallExtras.R
 #apt-get -y --force-yes install apache2
 #apt-get -y --force-yes install libcairo2-dev
 #apt-get -y --force-yes install libxt-dev
-#R CMD BATCH InstallExtras.R        # Rserve, FastRWeb, knitr
 #apt-get update
 #apt-get -y --force-yes install python-software-properties python g++ make
 #add-apt-repository ppa:chris-lea/node.js
