@@ -75,13 +75,15 @@ R CMD BATCH InstallPackages.R
 
 
 # ------------------------------------------------------------------------------
-# ------- Working code: --------------------------------------------------------
+# ------- Working code: dont change a thing! -----------------------------------
 # ------------------------------------------------------------------------------
 
 #debsource='deb http://cran.case.edu/bin/linux/ubuntu trusty/'
 #rversion='3.2.5-1trusty0'
-#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 #echo ${debsource} >> /etc/apt/sources.list
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+#apt-get update
+#apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 #apt-get update
 #apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
@@ -89,6 +91,8 @@ R CMD BATCH InstallPackages.R
 #apt-get -y --force-yes install apache2
 #apt-get -y --force-yes install libcairo2-dev
 #apt-get -y --force-yes install libxt-dev
+#apt-get update
+#apt-get -y --force-yes install python-software-properties python g++ make
 #apt-get update
 #apt-get -y --force-yes install python-software-properties python g++ make
 #add-apt-repository ppa:chris-lea/node.js
@@ -99,7 +103,19 @@ R CMD BATCH InstallPackages.R
 #wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 #gdebi shiny-server-1.5.13.944-amd64.deb
 #apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
-#R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... also takes some time (~5min)
+#R - Rcpp -- there, devtools,remotes -- not, 
+#R - install.packages(devtools), then install.packages(remotes) - works
+#R - remotes::install_version('dplyr', '0.8.3', repos = 'https://demo.rstudiopm.com/cran/__linux__/xenial/latest') - works
+#R - install.packages("ggvis", repos='https://cran.rstudio.com/') - works
+#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
+#R CMD BATCH InstallPackages.R        # takes some time (~5min) - works
+
+
+
+
+# In case dplyr is needed and there are problems with its LinkingTo -- BH:
+# From https://community.rstudio.com/t/install-packages-dplyr-fails-on-new-project/55787/3
+# remotes::install_version('dplyr', '0.8.3', repos = 'https://demo.rstudiopm.com/cran/__linux__/xenial/latest')
 
 
 
