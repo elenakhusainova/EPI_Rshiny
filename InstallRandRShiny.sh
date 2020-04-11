@@ -54,6 +54,8 @@ sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
 
+echo "\n\nShiny and Shiny server are installed! Installing R packages, might take a while...\n\n"
+
 R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... also takes some time (~5min)
 
 # ------------------------------------------------------------------------------
