@@ -1,9 +1,11 @@
 #!/bin/sh
 
-
 debsource='deb http://cran.case.edu/bin/linux/ubuntu trusty/'
 rversion='3.2.5-1trusty0'
 echo ${debsource} >> /etc/apt/sources.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+apt-get update
+apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
@@ -13,6 +15,8 @@ apt-get -y --force-yes install libcairo2-dev
 apt-get -y --force-yes install libxt-dev
 apt-get update
 apt-get -y --force-yes install python-software-properties python g++ make
+apt-get update
+apt-get -y --force-yes install python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -y --force-yes install nodejs
@@ -20,6 +24,7 @@ sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')
 apt-get install gdebi-core
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
+
 
 # To repair the problem with devtools:
 # from https://github.com/r-lib/devtools/issues/2131 :
