@@ -109,7 +109,18 @@ R CMD BATCH InstallPackages.R
 #R - install.packages("ggvis", repos='https://cran.rstudio.com/') - works
 #wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 #R CMD BATCH InstallPackages.R        # takes some time (~5min) - works
+#R install.packages("rmarkdown", repos='https://cran.rstudio.com/')
 
+# At this point everything works and the intro page should be seen
+
+#cd ../../srv/shiny-server
+#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/app_red.R
+#mv app_red.R app.R
+#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/MasterFile.csv
+#wget https://github.com/elenakhusainova/EPI_Rshiny/raw/master/alldata_red.RData
+#wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/master_variable_list.csv
+
+# The app is live!
 
 
 
