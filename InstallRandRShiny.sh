@@ -56,7 +56,7 @@ gdebi shiny-server-1.5.13.944-amd64.deb
 
 echo "\n\nShiny and Shiny server are installed! Installing R packages, might take a while...\n\n"
 
-R CMD BATCH InstallPackages.R        # bigmemory, foreach, ... also takes some time (~5min)
+R CMD BATCH InstallPackages.R 
 
 # ------------------------------------------------------------------------------
 # ------- Below are some drafts.  ----------------------------------------------
