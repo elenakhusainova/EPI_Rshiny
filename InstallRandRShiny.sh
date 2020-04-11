@@ -7,7 +7,6 @@ echo ${debsource} >> /etc/apt/sources.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
-apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-get -y --force-yes install r-base-core=${rversion}
 apt-get -y --force-yes install apache2
 apt-get -y --force-yes install libcairo2-dev
