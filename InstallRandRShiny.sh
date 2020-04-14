@@ -32,6 +32,7 @@ echo "\n\n Installing RShiny... \n\n"
 # To repair the problem with devtools (and httpuv):
 # from https://github.com/r-lib/devtools/issues/2131 :
 apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+apt-get update
 R -e 'install.packages("shiny", repos="http://cran.rstudio.com")'
 
 apt-get install gdebi-core
