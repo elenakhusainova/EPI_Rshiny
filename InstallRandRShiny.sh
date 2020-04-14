@@ -24,7 +24,6 @@ apt-get update
 
 echo "\n\n R is installed! \n\n"
 
-
 # ------------------------------------------------------------------------------
 # ------- Installing Rshiny ----------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -66,6 +65,7 @@ wget https://github.com/elenakhusainova/EPI_Rshiny/raw/master/alldata_red.RData
 wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/master_variable_list.csv
 
 echo "\n\n The app is live!\n\n"
+
 
 
 # ------------------------------------------------------------------------------
