@@ -9,6 +9,7 @@ echo ${debsource} >> /etc/apt/sources.list
 rversion='3.2.5-1trusty0'
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
+
 echo "\n\n Preliminaries are done... \n\n"
 
 # ------------------------------------------------------------------------------
@@ -39,13 +40,13 @@ sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')
 apt-get install gdebi-core
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
+
 echo "\n\n RShiny is installed! \n\n"
 
 # ------------------------------------------------------------------------------
 # ------- Installing project-specific packages ---------------------------------
 # ------------------------------------------------------------------------------
 echo "\n\n Installing R packages... \n\n"
-
 # To repair the problem with devtools:
 # from https://github.com/r-lib/devtools/issues/2131 :
 apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
