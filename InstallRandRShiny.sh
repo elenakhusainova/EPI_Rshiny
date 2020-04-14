@@ -41,12 +41,6 @@ apt-get install gdebi-core
 wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
 gdebi shiny-server-1.5.13.944-amd64.deb
 
-echo "\n\n RShiny is installed! \n\n"
-
-# ------------------------------------------------------------------------------
-# ------- Installing project-specific packages ---------------------------------
-# ------------------------------------------------------------------------------
-echo "\n\n Installing R packages... \n\n"
 # To repair the problem with devtools:
 # from https://github.com/r-lib/devtools/issues/2131 :
 apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
@@ -55,6 +49,12 @@ R -e 'install.packages("devtools", repos="http://cran.rstudio.com/")'
 R -e 'remotes::install_version("dplyr", "0.8.3", repos="https://demo.rstudiopm.com/cran/__linux__/xenial/latest")'
 R -e 'install.packages("rmarkdown", repos="http://cran.rstudio.com/")'
 
+echo "\n\n RShiny is installed! \n\n"
+
+# ------------------------------------------------------------------------------
+# ------- Installing project-specific packages ---------------------------------
+# ------------------------------------------------------------------------------
+echo "\n\n Installing R packages... \n\n"
 wget https://raw.githubusercontent.com/elenakhusainova/EPI_Rshiny/master/InstallPackages.R
 R CMD BATCH InstallPackages.R        # Might take some time (~5min) 
 
