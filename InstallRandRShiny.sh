@@ -28,7 +28,7 @@ gdebi shiny-server-1.5.13.944-amd64.deb
 apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 
 R -e 'install.packages("devtools", repos="http://cran.rstudio.com/")'
-R -e 'remotes::install_version("dplyr", "0.8.3", repos = "https://demo.rstudiopm.com/cran/__linux__/xenial/latest")'
+R -e 'remotes::install_version("dplyr", "0.8.3", repos="https://demo.rstudiopm.com/cran/__linux__/xenial/latest")'
 R -e 'install.packages("rmarkdown", repos="http://cran.rstudio.com/")'
 
 echo "\n\n Shiny should be working: Check the intro page. \n\n"
