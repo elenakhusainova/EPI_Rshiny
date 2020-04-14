@@ -6,9 +6,7 @@ echo ${debsource} >> /etc/apt/sources.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
 apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
-apt-get -y --force-yes install r-base=${rversion} r-recommended=${rversion} r-base-dev=${rversion}
 apt-get -y --force-yes install r-base-core=${rversion}
 apt-get -y --force-yes install apache2
 apt-get -y --force-yes install libcairo2-dev
@@ -16,7 +14,6 @@ apt-get -y --force-yes install libxt-dev
 apt-get update
 apt-get -y --force-yes install python-software-properties python g++ make
 apt-get update
-apt-get -y --force-yes install python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -y --force-yes install nodejs
